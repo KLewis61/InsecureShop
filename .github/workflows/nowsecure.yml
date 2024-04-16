@@ -1,0 +1,25 @@
+name: "NowSecure"
+
+on:
+  workflow_dispatch:
+    branches: [ main ]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    outputs:
+      report_id: ${{ steps.upload.outputs.report_id }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install ripgrep
+        run: sudo apt-get install -y ripgrep
+
+      - name: NowSecure upload app
+        uses: nowsecure/nowsecure-action/upload-app@v3
+        timeout-minutes: 120
+        with:
+          platform_token: ${{ secrets.NS_TOKEN }}
+          app_file: insecureshop.apk
+          group_id: "602abed9-4c66-453d-8431-da0195b682de"
