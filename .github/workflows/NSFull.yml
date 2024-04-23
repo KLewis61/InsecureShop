@@ -1,3 +1,6 @@
+name: "Build and Scan"
+
+
 on:
   workflow_dispatch:
     branches: [ main ]
